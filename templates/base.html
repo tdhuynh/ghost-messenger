@@ -5,16 +5,12 @@
     <title>Ghost Messenger</title>
   </head>
   <body>
-    {% if user.is_authenticated %}
-
+      <a href="{% url 'user_create_view' %}">New User</a>
+      <a href="{% url 'login' %}">Login</a>
+      
       {% block content %}
       {% endblock %}
 
-    {% else %}
-      <a href="{% url 'user_create_view' %}">New User</a>
-      <a href="{% url 'login' %}">Login</a>
-      Login to Start Messaging
 
-    {% endif %}
   </body>
 </html>
