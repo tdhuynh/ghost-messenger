@@ -1,5 +1,25 @@
 from django.db import models
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+
+
+@receiver(post_save, sender='auth.User')
+def create_user_profile(**kwargs):
+    created = kwargs.get('created')
+    instance = kwargs.get('instance')
+    if created:
+        Profile.objects.create(user=instance)
+
+
+class Profile(models.Model):
+    user = models.OneToOneField('auth.User')
+
+    @property
+    def all_messages(self):
+        return Message.objects.filter(user=self.user)
+
 
 class Message(models.Model):
-    sender = models.CharField(max_length=25)
-    body = models.CharField(max_length=100)
+    sender = models.ForeignKey('auth.User')
+    recipient = models.CharField(max_length=50)
+    body = models.TextField(max_length=100)

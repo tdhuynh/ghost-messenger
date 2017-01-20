@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  
+  <a href="{% url 'message_create_view' %}">New Message</a><br>
+  {% for x in object_list %}
+    {{ x.recipient }} : {{ x.body }}<br>
+  {% endfor %}
+
+{% endblock %}
