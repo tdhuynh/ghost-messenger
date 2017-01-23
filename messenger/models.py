@@ -20,6 +20,14 @@ class Profile(models.Model):
 
 
 class Message(models.Model):
-    sender = models.ForeignKey('auth.User')
-    recipient = models.CharField(max_length=50)
+    sender = models.ForeignKey('auth.User', related_name='sender')
+    recipient = models.ForeignKey('auth.User', related_name='recipient')
     body = models.TextField(max_length=100)
+
+    @property
+    def get_inbox(self):
+        return Message.objects.filter(recipient=request.user)
+
+    @property
+    def get_outbox(self):
+        return Message.objects.filter(sender=request.user)

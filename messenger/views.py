@@ -19,5 +19,10 @@ class IndexView(ListView):
 
 class MessageCreateView(CreateView):
     model = Message
-    fields = ("sender", "body",)
+    fields = ('recipient', "body",)
     success_url = reverse_lazy("index_view")
+
+    def form_valid(self, form):
+            instance = form.save(commit=False)
+            instance.sender = self.request.user
+            return super().form_valid(form)
