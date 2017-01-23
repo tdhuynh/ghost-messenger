@@ -3,7 +3,7 @@
 {% block content %}
 
   <a href="{% url 'message_create_view' %}">New Message</a><br>
-  {% for x in object_list %}
+  {% for x in object_list.get_inbox %}
     sender : {{ x.sender }}, recipient: {{ x.recipient }}, body : {{ x.body }}<br>
   {% endfor %}
 
