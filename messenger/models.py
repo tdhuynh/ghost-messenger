@@ -28,7 +28,5 @@ class Message(models.Model):
         return Message.objects.filter(recipient=self.user)
         # return Message.objects.all()
 
-
-    @property
     def get_outbox(self):
         return Message.objects.filter(sender=self.user)

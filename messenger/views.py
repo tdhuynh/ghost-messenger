@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm, User
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView
 from messenger.models import Message
 from django.urls import reverse_lazy
@@ -19,6 +19,7 @@ class IndexView(TemplateView):
         context = super(IndexView, self).get_context_data(**kwargs)
         if self.request.user.is_authenticated:
             context['inbox'] = Message.objects.filter(recipient=self.request.user)
+            context['outbox'] = Message.objects.filter(sender=self.request.user)
             return context
 
 
@@ -31,3 +32,7 @@ class MessageCreateView(CreateView):
             instance = form.save(commit=False)
             instance.sender = self.request.user
             return super().form_valid(form)
+
+
+class MessageDetailView(DetailView):
+    model = Message

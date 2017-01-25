@@ -3,9 +3,17 @@
 {% block content %}
 
   <a href="{% url 'message_create_view' %}">New Message</a><br>
-
+  <h2>Inbox</h2>
   {% for x in inbox %}
-    sender : {{ x.sender }}, recipient: {{ x.recipient }}, body : {{ x.body }}<br>
+    <ul>
+        <li><a href="{% url 'message_detail_view' x.id %}">From: {{ x.sender }}</a></li>
+    </ul>
+  {% endfor %}
+  <h2>Outbox</h2>
+  {% for x in outbox %}
+    <ul>
+      <li><a href="{% url 'message_detail_view' x.id %}">To: {{ x.recipient }}</a></li>
+    </ul>
   {% endfor %}
 
 {% endblock %}

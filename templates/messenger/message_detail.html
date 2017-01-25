@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <a href="{% url 'index_view' %}">Inbox</a>
+  <hr>
+  sender : {{ object.sender }}<br>
+  recipient: {{ object.recipient }}<br>
+  body : {{ object.body }}
+  <hr>
+{% endblock %}
