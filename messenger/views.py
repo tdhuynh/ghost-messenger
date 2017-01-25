@@ -12,9 +12,14 @@ class UserCreateView(CreateView):
     success_url = reverse_lazy("login")
 
 
-class IndexView(ListView):
+class IndexView(TemplateView):
     template_name = "index.html"
-    queryset = Message.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            context['inbox'] = Message.objects.filter(recipient=self.request.user)
+            return context
 
 
 class MessageCreateView(CreateView):

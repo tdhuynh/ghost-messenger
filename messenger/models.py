@@ -24,10 +24,11 @@ class Message(models.Model):
     recipient = models.ForeignKey('auth.User', related_name='recipient')
     body = models.TextField(max_length=100)
 
-    @property
     def get_inbox(self):
-        return Message.objects.filter(recipient=request.user)
+        return Message.objects.filter(recipient=self.user)
+        # return Message.objects.all()
+
 
     @property
     def get_outbox(self):
-        return Message.objects.filter(sender=request.user)
+        return Message.objects.filter(sender=self.user)
