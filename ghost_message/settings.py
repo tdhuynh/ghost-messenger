@@ -22,7 +22,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'rh-6(%nl=+gz7g^xthh4l9$mveajh$nizi6^7++4#%xsi&dumx'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -38,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'messenger'
+    'messenger',
 ]
 
 MIDDLEWARE = [
@@ -121,3 +120,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/'
+HASHID_FIELD_SALT = os.environ.get("HASHID_FIELD_SALT")

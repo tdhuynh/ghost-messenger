@@ -1,6 +1,7 @@
 from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from hashid_field import HashidAutoField, HashidField
 
 
 @receiver(post_save, sender='auth.User')
@@ -20,6 +21,7 @@ class Profile(models.Model):
 
 
 class Message(models.Model):
+    # id = HashidAutoField(primary_key=True)
     sender = models.ForeignKey('auth.User', related_name='sender')
     recipient = models.ForeignKey('auth.User', related_name='recipient')
     body = models.TextField(max_length=100)
