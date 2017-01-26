@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+{% if request.user.is_authenticated %}
   <a href="{% url 'message_create_view' %}">New Message</a><br>
   <h2>Inbox</h2>
   {% for x in inbox %}
@@ -15,5 +15,7 @@
       <li><a href="{% url 'message_detail_view' x.id %}">To: {{ x.recipient }}</a></li>
     </ul>
   {% endfor %}
-
+{% else %}
+  <h2>Login to Message</h2>
+{% endif %}
 {% endblock %}

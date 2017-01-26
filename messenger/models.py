@@ -15,20 +15,14 @@ def create_user_profile(**kwargs):
 class Profile(models.Model):
     user = models.OneToOneField('auth.User')
 
-    @property
-    def all_messages(self):
-        return Message.objects.filter(user=self.user)
-
 
 class Message(models.Model):
-    # id = HashidAutoField(primary_key=True)
     sender = models.ForeignKey('auth.User', related_name='sender')
     recipient = models.ForeignKey('auth.User', related_name='recipient')
     body = models.TextField(max_length=100)
 
     def get_inbox(self):
         return Message.objects.filter(recipient=self.user)
-        # return Message.objects.all()
 
     def get_outbox(self):
         return Message.objects.filter(sender=self.user)
